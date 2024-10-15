@@ -4,4 +4,4 @@ require_relative 'lib/board'
 require_relative 'lib/game'
 require_relative 'lib/player'
 
-Board.new
+Board.new.display_board
