@@ -8,13 +8,13 @@ class Knight < Pieces
   end
 
   def possible_moves
-    start_position_x, start_position_y = position
+    position_x, position_y = position
 
     moves = [
-      [start_position_x + 2, start_position_y + 1], [start_position_x + 2, start_position_y - 1],
-      [start_position_x - 2, start_position_y + 1], [start_position_x - 2, start_position_y - 1],
-      [start_position_x + 1, start_position_y + 2], [start_position_x + 1, start_position_y - 2],
-      [start_position_x - 1, start_position_y + 2], [start_position_x - 1, start_position_y - 2]
+      [position_x + 2, position_y + 1], [position_x + 2, position_y - 1],
+      [position_x - 2, position_y + 1], [position_x - 2, position_y - 1],
+      [position_x + 1, position_y + 2], [position_x + 1, position_y - 2],
+      [position_x - 1, position_y + 2], [position_x - 1, position_y - 2]
     ]
     # Return moves only within the 8x8 board
     valid_move(moves)
