@@ -2,7 +2,7 @@
 
 require_relative 'pieces'
 
-class Rock < Pieces
+class Rook < Pieces
   def initialize(position, color)
     super(position, color == :black ? "\u265C" : "\u2656", color)
   end

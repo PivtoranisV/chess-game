@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'colorize'
-require_relative 'pieces/rock'
+require_relative 'pieces/rook'
 require_relative 'pieces/bishop'
 require_relative 'pieces/king'
 require_relative 'pieces/knight'
@@ -39,9 +39,9 @@ class Board
 
   def populate_pieces
     piece_positions = {
-      black: { row1: [Rock, Knight, Bishop, Queen, King, Bishop, Knight, Rock],
+      black: { row1: [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook],
                row2: [Pawn] * 8 },
-      white: { row1: [Rock, Knight, Bishop, Queen, King, Bishop, Knight, Rock],
+      white: { row1: [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook],
                row2: [Pawn] * 8 }
     }
 

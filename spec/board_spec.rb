@@ -12,7 +12,7 @@ describe Board do
         expect(board.grid.all? { |row| row.length == 8 }).to be true
       end
 
-      it 'Place Black Rock in the first column of first row' do
+      it 'Place Black Rook in the first column of first row' do
         expect(board.grid[0][0]).to eq("\u265C")
       end
       it 'Place Black Knight in the second column of first row' do
