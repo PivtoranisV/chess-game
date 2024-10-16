@@ -13,7 +13,7 @@ describe Board do
       end
 
       it 'Place Rock in the first column of first row' do
-        expect(board.grid[0][0]).to eq("\u2656")
+        expect(board.grid[0][0]).to eq("\u265C")
       end
     end
   end
