@@ -38,26 +38,25 @@ class Board
   end
 
   def populate_pieces
-    # Black pieces
-    grid[0][0] = Rock.new([0, 0], :black).symbol
-    grid[0][1] = Knight.new([0, 1], :black).symbol
-    grid[0][2] = Bishop.new([0, 2], :black).symbol
-    grid[0][3] = Queen.new([0, 3], :black).symbol
-    grid[0][4] = King.new([0, 4], :black).symbol
-    grid[0][5] = Bishop.new([0, 5], :black).symbol
-    grid[0][6] = Knight.new([0, 6], :black).symbol
-    grid[0][7] = Rock.new([0, 7], :black).symbol
-    8.times { |col| grid[1][col] = Pawn.new([1, col], :black).symbol }
+    piece_positions = {
+      black: { row1: [Rock, Knight, Bishop, Queen, King, Bishop, Knight, Rock],
+               row2: [Pawn] * 8 },
+      white: { row1: [Rock, Knight, Bishop, Queen, King, Bishop, Knight, Rock],
+               row2: [Pawn] * 8 }
+    }
 
-    # White pieces
-    grid[7][0] = Rock.new([7, 0], :white).symbol
-    grid[7][1] = Knight.new([7, 1], :white).symbol
-    grid[7][2] = Bishop.new([7, 2], :white).symbol
-    grid[7][3] = Queen.new([7, 3], :white).symbol
-    grid[7][4] = King.new([7, 4], :white).symbol
-    grid[7][5] = Bishop.new([7, 5], :white).symbol
-    grid[7][6] = Knight.new([7, 6], :white).symbol
-    grid[7][7] = Rock.new([7, 7], :white).symbol
-    8.times { |col| grid[6][col] = Pawn.new([6, col], :white).symbol }
+    # Placing black pieces
+    place_pieces(piece_positions[:black][:row1], 0, :black)
+    place_pieces(piece_positions[:black][:row2], 1, :black)
+
+    # Placing white pieces
+    place_pieces(piece_positions[:white][:row1], 7, :white)
+    place_pieces(piece_positions[:white][:row2], 6, :white)
+  end
+
+  def place_pieces(pieces, row, color)
+    pieces.each_with_index do |piece_class, col|
+      grid[row][col] = piece_class.new([row, col], color).symbol
+    end
   end
 end
