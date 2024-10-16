@@ -21,7 +21,7 @@ class Board
 
     grid.each_with_index do |row, row_index|
       formatted_row = row.map.with_index do |cell, col_index|
-        cell_display = cell.nil? ? '   ' : " #{cell} "
+        cell_display = cell.nil? ? '   ' : " #{colorize_piece(cell)} "
         background_color = (row_index + col_index).even? ? :light_yellow : :light_blue
         cell_display.colorize(background: background_color)
       end.join(' | ')
@@ -58,5 +58,10 @@ class Board
     pieces.each_with_index do |piece_class, col|
       grid[row][col] = piece_class.new([row, col], color).symbol
     end
+  end
+
+  def colorize_piece(piece_symbol)
+    piece_color = piece_symbol =~ /\u265A|\u265B|\u265C|\u265D|\u265E|\u265F/ ? :black : :white
+    piece_symbol.colorize(color: piece_color)
   end
 end
