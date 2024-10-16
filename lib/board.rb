@@ -39,25 +39,25 @@ class Board
 
   def populate_pieces
     # Black pieces
-    grid[0][0] = Rock.new([0, 0], "\u265C", 'Black').symbol
-    grid[0][1] = Knight.new([0, 1], "\u265E", 'Black').symbol
-    grid[0][2] = Bishop.new([0, 2], "\u265D", 'Black').symbol
-    grid[0][3] = Queen.new([0, 3], "\u265B", 'Black').symbol
-    grid[0][4] = King.new([0, 4], "\u265A", 'Black').symbol
-    grid[0][5] = Bishop.new([0, 5], "\u265D", 'Black').symbol
-    grid[0][6] = Knight.new([0, 6], "\u265E", 'Black').symbol
-    grid[0][7] = Rock.new([0, 7], "\u265C", 'Black').symbol
-    8.times { |col| grid[1][col] = Pawn.new([1, col], "\u265F", 'Black').symbol }
+    grid[0][0] = Rock.new([0, 0], :black).symbol
+    grid[0][1] = Knight.new([0, 1], :black).symbol
+    grid[0][2] = Bishop.new([0, 2], :black).symbol
+    grid[0][3] = Queen.new([0, 3], :black).symbol
+    grid[0][4] = King.new([0, 4], :black).symbol
+    grid[0][5] = Bishop.new([0, 5], :black).symbol
+    grid[0][6] = Knight.new([0, 6], :black).symbol
+    grid[0][7] = Rock.new([0, 7], :black).symbol
+    8.times { |col| grid[1][col] = Pawn.new([1, col], :black).symbol }
 
     # White pieces
-    grid[7][0] = Rock.new([7, 0], "\u2656", 'White').symbol
-    grid[7][1] = Knight.new([7, 1], "\u2658", 'White').symbol
-    grid[7][2] = Bishop.new([7, 2], "\u2657", 'White').symbol
-    grid[7][3] = Queen.new([7, 3], "\u2655", 'White').symbol
-    grid[7][4] = King.new([7, 4], "\u2654", 'White').symbol
-    grid[7][5] = Bishop.new([7, 5], "\u2657", 'White').symbol
-    grid[7][6] = Knight.new([7, 6], "\u2658", 'White').symbol
-    grid[7][7] = Rock.new([7, 7], "\u2656", 'White').symbol
-    8.times { |col| grid[6][col] = Pawn.new([6, col], "\u2659", 'White').symbol }
+    grid[7][0] = Rock.new([7, 0], :white).symbol
+    grid[7][1] = Knight.new([7, 1], :white).symbol
+    grid[7][2] = Bishop.new([7, 2], :white).symbol
+    grid[7][3] = Queen.new([7, 3], :white).symbol
+    grid[7][4] = King.new([7, 4], :white).symbol
+    grid[7][5] = Bishop.new([7, 5], :white).symbol
+    grid[7][6] = Knight.new([7, 6], :white).symbol
+    grid[7][7] = Rock.new([7, 7], :white).symbol
+    8.times { |col| grid[6][col] = Pawn.new([6, col], :white).symbol }
   end
 end
