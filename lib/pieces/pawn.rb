@@ -25,6 +25,6 @@ class Pawn < Pieces
     end
 
     # Return moves only within the 8x8 board
-    valid_move(moves)
+    valid_moves(moves)
   end
 end

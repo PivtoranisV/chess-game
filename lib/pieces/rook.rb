@@ -18,18 +18,6 @@ class Rook < Pieces
         break if !valid_move?(new_pos) || add_moves(moves, new_pos, board)
       end
     end
-
     moves
-  end
-
-  private
-
-  def add_moves(moves, new_pos, board)
-    piece = board.square_occupied?(new_pos)
-    return true if piece && piece.color == color # Blocked by own piece
-
-    moves << new_pos
-
-    piece.nil? ? false : true # Stop if occupied by an opponent's piece
   end
 end

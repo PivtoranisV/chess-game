@@ -22,6 +22,6 @@ class Queen < Pieces
     7.downto(1) { |move| moves << [position_x - move, position_y + move] }
 
     # Return moves only within the 8x8 board
-    valid_move(moves)
+    valid_moves(moves)
   end
 end

@@ -17,6 +17,6 @@ class Knight < Pieces
       [position_x - 1, position_y + 2], [position_x - 1, position_y - 2]
     ]
     # Return moves only within the 8x8 board
-    valid_move(moves)
+    valid_moves(moves)
   end
 end
