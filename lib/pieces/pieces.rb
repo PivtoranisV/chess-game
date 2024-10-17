@@ -3,13 +3,24 @@
 class Pieces
   attr_accessor :position, :symbol, :color
 
-  def initialize(position, symbol, color)
+  def initialize(position, color)
     @position = position
-    @symbol = symbol
+    @symbol = set_symbol(color)
     @color = color
   end
 
   private
+
+  def set_symbol(color)
+    case self.class.name
+    when 'Rook' then color == :black ? "\u265C" : "\u2656"
+    when 'Knight' then color == :black ? "\u265E" : "\u2658"
+    when 'Bishop' then color == :black ? "\u265D" : "\u2657"
+    when 'Queen' then color == :black ? "\u265B" : "\u2655"
+    when 'King' then color == :black ? "\u265A" : "\u2654"
+    when 'Pawn' then color == :black ? "\u265F" : "\u2659"
+    end
+  end
 
   def possible_moves_by_direction(board, position, directions)
     position_x, position_y = position

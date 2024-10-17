@@ -3,10 +3,6 @@
 require_relative 'pieces'
 
 class King < Pieces
-  def initialize(position, color)
-    super(position, color == :black ? "\u265A" : "\u2654", color)
-  end
-
   def possible_moves
     position_x, position_y = position
 
