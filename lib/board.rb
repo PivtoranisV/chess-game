@@ -61,12 +61,12 @@ class Board
 
   def place_pieces(pieces, row, color)
     pieces.each_with_index do |piece_class, col|
-      grid[row][col] = piece_class.new([row, col], color).symbol
+      grid[row][col] = piece_class.new([row, col], color)
     end
   end
 
-  def colorize_piece(piece_symbol)
-    piece_color = piece_symbol =~ /\u265A|\u265B|\u265C|\u265D|\u265E|\u265F/ ? :black : :white
-    piece_symbol.colorize(color: piece_color)
+  def colorize_piece(piece)
+    piece_color = piece.color == :black ? :black : :white
+    piece.symbol.colorize(color: piece_color)
   end
 end

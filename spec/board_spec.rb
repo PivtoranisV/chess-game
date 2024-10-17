@@ -13,22 +13,22 @@ describe Board do
       end
 
       it 'Place Black Rook in the first column of first row' do
-        expect(board.grid[0][0]).to eq("\u265C")
+        expect(board.grid[0][0].symbol).to eq("\u265C")
       end
       it 'Place Black Knight in the second column of first row' do
-        expect(board.grid[0][1]).to eq("\u265E")
+        expect(board.grid[0][1].symbol).to eq("\u265E")
       end
       it 'Place Black King in the fifth column of first row' do
-        expect(board.grid[0][4]).to eq("\u265A")
+        expect(board.grid[0][4].symbol).to eq("\u265A")
       end
       it 'Place White King in the fifth column of last row' do
-        expect(board.grid[7][4]).to eq("\u2654")
+        expect(board.grid[7][4].symbol).to eq("\u2654")
       end
       it 'Place White Knight in the second column of last row' do
-        expect(board.grid[7][1]).to eq("\u2658")
+        expect(board.grid[7][1].symbol).to eq("\u2658")
       end
       it 'Place White pawns in the each column of second row' do
-        expect(board.grid[1].all? { |cell| cell == "\u265F" }).to be true
+        expect(board.grid[1].all? { |cell| cell.symbol == "\u265F" }).to be true
       end
     end
   end
