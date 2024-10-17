@@ -4,9 +4,11 @@ require_relative 'lib/board'
 require_relative 'lib/game'
 require_relative 'lib/player'
 require_relative 'lib/pieces/knight'
+require_relative 'lib/pieces/rook'
 
-Board.new.display_board
-knight = Knight.new([0, 1], :black)
-p knight.position
+board = Board.new
+board.display_board
 
-p knight.possible_moves
+rook = Rook.new([2, 0], :black)
+
+p rook.possible_moves(board)
