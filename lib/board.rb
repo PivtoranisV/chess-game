@@ -31,6 +31,11 @@ class Board
     end
   end
 
+  def square_occupied?(position)
+    position_x, position_y = position
+    grid[position_x][position_y]
+  end
+
   private
 
   def create_grid
