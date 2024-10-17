@@ -22,5 +22,6 @@ class Player
 
     start_position = converted_input[0..1].reverse
     end_position = converted_input[2..3].reverse
+    [start_position, end_position]
   end
 end
