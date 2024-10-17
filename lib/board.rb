@@ -16,19 +16,20 @@ class Board
   end
 
   def display_board
-    puts '|     |  a  |  b  |  c  |  d  |  e  |  f  |  g  |  h  |'
-    puts '|-----|-----|-----|-----|-----|-----|-----|-----|-----|'
+    puts '    |  a  |  b  |  c  |  d  |  e  |  f  |  g  |  h  |'
+    puts '----|-----|-----|-----|-----|-----|-----|-----|-----|----'
 
-    grid.each_with_index do |row, row_index|
+    grid.reverse.each_with_index do |row, row_index|
       formatted_row = row.map.with_index do |cell, col_index|
         cell_display = cell.nil? ? '   ' : " #{colorize_piece(cell)} "
         background_color = (row_index + col_index).even? ? :light_yellow : :light_blue
         cell_display.colorize(background: background_color)
       end.join(' | ')
 
-      puts "|  #{row_index + 1}  | #{formatted_row} |"
-      puts '|_____|_____|_____|_____|_____|_____|_____|_____|_____|'
+      puts " #{8 - row_index}  | #{formatted_row} |  #{8 - row_index} "
+      puts '____|_____|_____|_____|_____|_____|_____|_____|_____|____'
     end
+    puts '    |  a  |  b  |  c  |  d  |  e  |  f  |  g  |  h  |'
   end
 
   def square_occupied?(position)
@@ -50,13 +51,13 @@ class Board
                row2: [Pawn] * 8 }
     }
 
-    # Placing black pieces
-    place_pieces(piece_positions[:black][:row1], 0, :black)
-    place_pieces(piece_positions[:black][:row2], 1, :black)
-
     # Placing white pieces
-    place_pieces(piece_positions[:white][:row1], 7, :white)
-    place_pieces(piece_positions[:white][:row2], 6, :white)
+    place_pieces(piece_positions[:white][:row1], 0, :white)
+    place_pieces(piece_positions[:white][:row2], 1, :white)
+
+    # Placing black pieces
+    place_pieces(piece_positions[:black][:row1], 7, :black)
+    place_pieces(piece_positions[:black][:row2], 6, :black)
   end
 
   def place_pieces(pieces, row, color)
