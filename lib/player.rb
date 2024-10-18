@@ -78,6 +78,12 @@ class Player
       return false
     end
 
+    # Check if player move with own color piece
+    if piece.color != color
+      puts "You can move only with #{color} pieces"
+      return false
+    end
+
     # Checks if end_position is part of possible moves
     possible_moves = piece.possible_moves(board)
 

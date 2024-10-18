@@ -7,7 +7,7 @@ describe Player do
   describe '#make_move' do
     subject(:player) { described_class.new('Bob', :white) }
     let(:board) { instance_double(Board) }
-    let(:piece) { double('Piece', possible_moves: [[2, 4], [3, 4]]) }
+    let(:piece) { double('Piece', possible_moves: [[2, 4], [3, 4]], color: :white) }
 
     context 'When valid input is provided by the player' do
       it 'correctly converts long algebraic notation to board coordinates' do
