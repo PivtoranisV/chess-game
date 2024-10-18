@@ -17,11 +17,33 @@ class Game
 //  $$$$$$/        $$/   $$/       $$$$$$$$/        $$$$$$/         $$$$$$/   //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////'
+
+  PIECES_COLORS = %i[white black].freeze
+
   def initialize
     puts CHESS
     @board = Board.new
     display_board
   end
+
+  def setup_players
+    puts 'Player 1, please enter your name:'
+    player1_name = gets.chomp
+    player1_name = 'Player 1' if player1_name.strip.empty?
+    player1_color = player_color
+    puts "#{player1_name}, you will play for #{player1_color} team"
+    puts 'Player 2, please enter your name:'
+    player2_name = gets.chomp
+    player2_name = 'Player 2' if player2_name.strip.empty?
+    player2_color = player_color(player1_color)
+    puts "#{player2_name}, you will play for #{player2_color} team"
+    sleep(1)
+    @player1 = Player.new(player1_name, player1_color)
+    @player2 = Player.new(player2_name, player2_color)
+    display_board
+  end
+
+  private
 
   def display_board
     puts '    |  a  |  b  |  c  |  d  |  e  |  f  |  g  |  h  |'
@@ -40,10 +62,14 @@ class Game
     puts '    |  a  |  b  |  c  |  d  |  e  |  f  |  g  |  h  |'
   end
 
-  private
-
   def colorize_piece(piece)
     piece_color = piece.color == :black ? :black : :white
     piece.symbol.colorize(color: piece_color)
+  end
+
+  def player_color(color = nil)
+    return PIECES_COLORS.sample unless color
+
+    PIECES_COLORS.reject { |el| el == color }[0]
   end
 end
