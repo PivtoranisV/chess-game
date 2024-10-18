@@ -63,6 +63,14 @@ class Player
       return false
     end
 
+    # Checks if end_position is part of possible moves
+    possible_moves = piece.possible_moves(board)
+
+    unless possible_moves.include?(end_position)
+      puts 'Provided move is not allowed'
+      return false
+    end
+
     true
   end
 end
