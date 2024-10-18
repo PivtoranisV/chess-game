@@ -7,7 +7,7 @@ describe Pawn do
   let(:board) { instance_double(Board) }
 
   before do
-    allow(board).to receive(:square_occupied?).and_return(nil)
+    allow(board).to receive(:square_occupied).and_return(nil)
   end
 
   context 'When Black Pawn is at position [6, 3]' do
@@ -27,7 +27,7 @@ describe Pawn do
   context 'When White Pawn is blocked by other piece' do
     subject(:pawn14) { described_class.new([1, 4], :white) }
     it 'should return valid possible moves' do
-      allow(board).to receive(:square_occupied?).with([2, 4]).and_return(double('Piece', color: :black))
+      allow(board).to receive(:square_occupied).with([2, 4]).and_return(double('Piece', color: :black))
       expected_moves = []
       expect(pawn14.possible_moves(board)).to match_array(expected_moves)
     end
@@ -35,7 +35,7 @@ describe Pawn do
   context 'When Black Pawn is capturing' do
     subject(:pawn43) { described_class.new([4, 3], :black) }
     it 'should return valid possible moves for capturing' do
-      allow(board).to receive(:square_occupied?).with([3, 2]).and_return(double('Piece', color: :white))
+      allow(board).to receive(:square_occupied).with([3, 2]).and_return(double('Piece', color: :white))
       expected_moves = [[3, 2], [3, 3]]
       expect(pawn43.possible_moves(board)).to match_array(expected_moves)
     end

@@ -32,9 +32,17 @@ class Board
     puts '    |  a  |  b  |  c  |  d  |  e  |  f  |  g  |  h  |'
   end
 
-  def square_occupied?(position)
+  def square_occupied(position)
     position_x, position_y = position
     grid[position_x][position_y]
+  end
+
+  def update_board(positions)
+    start_position, end_position = positions
+    piece = square_occupied(start_position)
+
+    grid[start_position[0]][start_position[1]] = nil
+    grid[end_position[0]][end_position[1]] = piece
   end
 
   private

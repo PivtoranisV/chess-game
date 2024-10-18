@@ -44,7 +44,7 @@ class Pieces
   end
 
   def add_moves(moves, new_pos, board)
-    piece = board.square_occupied?(new_pos)
+    piece = board.square_occupied(new_pos)
     return true if piece && piece.color == color # Blocked by own piece
 
     moves << new_pos

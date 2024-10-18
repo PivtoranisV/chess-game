@@ -12,7 +12,7 @@ describe Player do
     context 'When valid input is provided by the player' do
       it 'correctly converts long algebraic notation to board coordinates' do
         allow(player).to receive(:gets).and_return('e2e4')
-        allow(board).to receive(:square_occupied?).with([1, 4]).and_return(piece)
+        allow(board).to receive(:square_occupied).with([1, 4]).and_return(piece)
         allow(piece).to receive(:possible_moves).and_return([[1, 4], [3, 4]])
 
         result = player.make_move(board)
@@ -24,7 +24,7 @@ describe Player do
     context 'When input is invalid length' do
       it 'rejects input with less than 4 characters' do
         allow(player).to receive(:gets).and_return('e2e', 'e2e4')
-        allow(board).to receive(:square_occupied?).with([1, 4]).and_return(piece)
+        allow(board).to receive(:square_occupied).with([1, 4]).and_return(piece)
 
         expect do
           player.make_move(board)
@@ -33,7 +33,7 @@ describe Player do
 
       it 'rejects input with more than 4 characters' do
         allow(player).to receive(:gets).and_return('invalid', 'e2e4')
-        allow(board).to receive(:square_occupied?).with([1, 4]).and_return(piece)
+        allow(board).to receive(:square_occupied).with([1, 4]).and_return(piece)
 
         expect do
           player.make_move(board)
@@ -44,7 +44,7 @@ describe Player do
     context 'When input has wrong characters' do
       it 'rejects input with invalid column characters' do
         allow(player).to receive(:gets).and_return('z2z4', 'e2e4')
-        allow(board).to receive(:square_occupied?).with([1, 4]).and_return(piece)
+        allow(board).to receive(:square_occupied).with([1, 4]).and_return(piece)
 
         expect do
           player.make_move(board)
@@ -53,7 +53,7 @@ describe Player do
 
       it 'rejects input with invalid row characters' do
         allow(player).to receive(:gets).and_return('e9e4', 'e2e4')
-        allow(board).to receive(:square_occupied?).with([1, 4]).and_return(piece)
+        allow(board).to receive(:square_occupied).with([1, 4]).and_return(piece)
 
         expect do
           player.make_move(board)
@@ -64,8 +64,8 @@ describe Player do
     context 'When invalid input is provided' do
       it 'prints invalid move message and retries input' do
         allow(player).to receive(:gets).and_return('d2d4', 'e2e4')
-        allow(board).to receive(:square_occupied?).with([1, 3]).and_return(nil)
-        allow(board).to receive(:square_occupied?).with([1, 4]).and_return(piece)
+        allow(board).to receive(:square_occupied).with([1, 3]).and_return(nil)
+        allow(board).to receive(:square_occupied).with([1, 4]).and_return(piece)
 
         expect { player.make_move(board) }.to output(/Oops! The move you entered is invalid./).to_stdout
       end
@@ -74,7 +74,7 @@ describe Player do
     context 'When end_position is not part of possible moves' do
       it 'rejects invalid move and retries input' do
         allow(player).to receive(:gets).and_return('e2e5', 'e2e4')
-        allow(board).to receive(:square_occupied?).with([1, 4]).and_return(piece)
+        allow(board).to receive(:square_occupied).with([1, 4]).and_return(piece)
         allow(piece).to receive(:possible_moves).and_return([[3, 4], [2, 4]])
 
         expect { player.make_move(board) }.to output(/Provided move is not allowed/).to_stdout

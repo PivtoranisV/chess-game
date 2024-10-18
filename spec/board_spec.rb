@@ -32,4 +32,16 @@ describe Board do
       end
     end
   end
+
+  describe '#update_board' do
+    context 'When player makes a move' do
+      it 'updates the piece position on the board' do
+        expect(board.grid[1][0].symbol).to eq("\u2659")
+        board.update_board([[1, 0], [2, 0]])
+
+        expect(board.grid[2][0].symbol).to eq("\u2659")
+        expect(board.grid[1][0]).to be_nil
+      end
+    end
+  end
 end

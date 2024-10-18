@@ -72,7 +72,7 @@ class Player
     start_position, end_position = positions
 
     # Check if piece exists at the start position
-    piece = board.square_occupied?(start_position)
+    piece = board.square_occupied(start_position)
     if piece.nil?
       puts 'No piece at the selected start position.'
       return false
