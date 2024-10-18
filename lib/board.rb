@@ -26,6 +26,7 @@ class Board
 
     grid[start_position[0]][start_position[1]] = nil
     grid[end_position[0]][end_position[1]] = piece
+    piece.position = end_position
   end
 
   private
