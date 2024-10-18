@@ -15,23 +15,6 @@ class Board
     populate_pieces
   end
 
-  def display_board
-    puts '    |  a  |  b  |  c  |  d  |  e  |  f  |  g  |  h  |'
-    puts '----|-----|-----|-----|-----|-----|-----|-----|-----|----'
-
-    grid.reverse.each_with_index do |row, row_index|
-      formatted_row = row.map.with_index do |cell, col_index|
-        cell_display = cell.nil? ? '   ' : " #{colorize_piece(cell)} "
-        background_color = (row_index + col_index).even? ? :light_yellow : :light_blue
-        cell_display.colorize(background: background_color)
-      end.join(' | ')
-
-      puts " #{8 - row_index}  | #{formatted_row} |  #{8 - row_index} "
-      puts '____|_____|_____|_____|_____|_____|_____|_____|_____|____'
-    end
-    puts '    |  a  |  b  |  c  |  d  |  e  |  f  |  g  |  h  |'
-  end
-
   def square_occupied(position)
     position_x, position_y = position
     grid[position_x][position_y]
@@ -72,10 +55,5 @@ class Board
     pieces.each_with_index do |piece_class, col|
       grid[row][col] = piece_class.new([row, col], color)
     end
-  end
-
-  def colorize_piece(piece)
-    piece_color = piece.color == :black ? :black : :white
-    piece.symbol.colorize(color: piece_color)
   end
 end
