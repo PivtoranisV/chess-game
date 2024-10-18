@@ -23,23 +23,12 @@ class Game
   def initialize
     puts CHESS
     @board = Board.new
-    display_board
   end
 
   def setup_players
-    puts 'Player 1, please enter your name:'
-    player1_name = gets.chomp
-    player1_name = 'Player 1' if player1_name.strip.empty?
-    player1_color = player_color
-    puts "#{player1_name}, you will play for #{player1_color} team"
-    puts 'Player 2, please enter your name:'
-    player2_name = gets.chomp
-    player2_name = 'Player 2' if player2_name.strip.empty?
-    player2_color = player_color(player1_color)
-    puts "#{player2_name}, you will play for #{player2_color} team"
+    @player1 = create_player('Chess Player 1', nil)
+    @player2 = create_player('Chess Player 2', @player1.color)
     sleep(1)
-    @player1 = Player.new(player1_name, player1_color)
-    @player2 = Player.new(player2_name, player2_color)
     display_board
   end
 
@@ -65,6 +54,15 @@ class Game
   def colorize_piece(piece)
     piece_color = piece.color == :black ? :black : :white
     piece.symbol.colorize(color: piece_color)
+  end
+
+  def create_player(default_name, other_color)
+    puts "\n#{default_name}, please enter your name:\n"
+    name = gets.chomp
+    name = default_name if name.strip.empty?
+    color = player_color(other_color)
+    puts "\n#{name}, you will play for #{color} team\n"
+    Player.new(name, color)
   end
 
   def player_color(color = nil)
