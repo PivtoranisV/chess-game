@@ -44,6 +44,25 @@ describe Player do
       end
     end
 
+    context 'When input has wrong characters' do
+      it 'rejects input with invalid column characters' do
+        allow(player).to receive(:gets).and_return('z2z4', 'e2e4')
+        allow(board).to receive(:square_occupied?).with([1, 4]).and_return(true)
+
+        expect do
+          player.make_move(board)
+        end.to output(/The first and third characters must be letters from a to h/).to_stdout
+      end
+
+      it 'rejects input with invalid row characters' do
+        allow(player).to receive(:gets).and_return('e9e4', 'e2e4')
+        allow(board).to receive(:square_occupied?).with([1, 4]).and_return(true)
+
+        expect do
+          player.make_move(board)
+        end.to output(/The second and fourth characters must be numbers from 1 to 8/).to_stdout
+      end
+    end
     context 'When invalid input is provided' do
       it 'prints invalid move message and retries input' do
         allow(player).to receive(:gets).and_return('d2d4', 'a7a6')

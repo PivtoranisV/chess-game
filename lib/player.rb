@@ -35,18 +35,34 @@ class Player
   def valid_move?(board, positions, input)
     start_position, end_position = positions
 
-    # possible_moves = piece.possible_moves(board)
-
+    # Input length validation
     if input.length != 4
-      puts 'You enter less or more than 4 characters'
+      puts 'You entered less or more than 4 characters'
       return false
     end
 
+    # Constants for valid inputs
+    valid_columns = ('a'..'h').to_a
+    valid_rows = ('1'..'8').to_a
+
+    # Validate input characters for columns
+    unless valid_columns.include?(input[0]) && valid_columns.include?(input[2])
+      puts 'The first and third characters must be letters from a to h'
+      return false
+    end
+    # Validate input characters for row
+    unless valid_rows.include?(input[1]) && valid_rows.include?(input[3])
+      puts 'The second and fourth characters must be numbers from 1 to 8'
+      return false
+    end
+
+    # Check if piece exists at the start position
     piece = board.square_occupied?(start_position)
     if piece.nil?
       puts 'No piece at the selected start position.'
       return false
     end
+
     true
   end
 end
