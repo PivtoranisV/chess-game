@@ -11,12 +11,14 @@ class Player
   end
 
   def make_move(board)
-    puts "\n#{name}, please choose your next move"
+    puts "\n#{name}, Enter your move or type 'help' for rules:"
     puts 'Please enter your move using long algebraic notation (e.g., e2e4):'
 
-    input = gets.chomp
-
-    if valid_input_format?(input)
+    input = gets.chomp.downcase
+    if input == 'help'
+      display_help
+      make_move(board)
+    elsif valid_input_format?(input)
       positions = convert_input(input)
 
       if valid_move?(board, positions)
@@ -93,5 +95,9 @@ class Player
     end
 
     true
+  end
+
+  def display_help
+    puts 'Chess Game Rules:'
   end
 end

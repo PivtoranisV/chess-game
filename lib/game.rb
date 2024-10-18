@@ -23,6 +23,8 @@ class Game
 
   def initialize
     puts CHESS
+    puts "\n Hi everyone, if you are not familiar with chess rules, please type help,
+    if you want to save yor game, please type save\n"
     @board = Board.new
     setup_players
   end
@@ -51,8 +53,8 @@ class Game
   end
 
   def setup_players
-    @player1 = create_player('Chess Player 1', nil)
-    @player2 = create_player('Chess Player 2', @player1.color)
+    @player1 = create_player('Chess Player', nil)
+    @player2 = create_player('Chess Player', @player1.color)
     sleep(1)
     display_board
   end
@@ -84,7 +86,7 @@ class Game
     name = gets.chomp
     name = default_name if name.strip.empty?
     color = player_color(other_color)
-    puts "\n#{name}, you will play for #{color} team\n"
+    puts "\n#{name}, you will play for #{color.upcase} team\n"
     Player.new(name, color)
   end
 
