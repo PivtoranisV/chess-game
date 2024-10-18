@@ -26,14 +26,18 @@ describe Player do
         allow(player).to receive(:gets).and_return('e2e', 'e2e4')
         allow(board).to receive(:square_occupied?).with([1, 4]).and_return(piece)
 
-        expect { player.make_move(board) }.to output(/Invalid move. Try Again/).to_stdout
+        expect do
+          player.make_move(board)
+        end.to output(/Oops! The move you entered is invalid. Remember to use long algebraic notation like e2e4. Try again:/).to_stdout
       end
 
       it 'rejects input with more than 4 characters' do
         allow(player).to receive(:gets).and_return('invalid', 'e2e4')
         allow(board).to receive(:square_occupied?).with([1, 4]).and_return(piece)
 
-        expect { player.make_move(board) }.to output(/Invalid move. Try Again/).to_stdout
+        expect do
+          player.make_move(board)
+        end.to output(/Oops! The move you entered is invalid. Remember to use long algebraic notation like e2e4. Try again:/).to_stdout
       end
     end
 
@@ -63,7 +67,7 @@ describe Player do
         allow(board).to receive(:square_occupied?).with([1, 3]).and_return(nil)
         allow(board).to receive(:square_occupied?).with([1, 4]).and_return(piece)
 
-        expect { player.make_move(board) }.to output(/Invalid move. Try Again/).to_stdout
+        expect { player.make_move(board) }.to output(/Oops! The move you entered is invalid./).to_stdout
       end
     end
 

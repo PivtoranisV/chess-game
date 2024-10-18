@@ -16,25 +16,34 @@ class Player
 
     input = gets.chomp
 
+    if valid_input_format?(input)
+      positions = convert_input(input)
+
+      if valid_move?(board, positions)
+        positions
+      else
+        puts 'Oops! The move you entered is invalid.'
+        make_move(board)
+      end
+    else
+      puts 'Oops! The move you entered is invalid. Remember to use long algebraic notation like e2e4. Try again:'
+      make_move(board)
+    end
+  end
+
+  private
+
+  def convert_input(input)
     converted_input = input.split('').map do |char|
       char.match?(/[a-z]/) ? char.ord - 97 : char.to_i - 1
     end
 
     start_position = converted_input[0..1].reverse
     end_position = converted_input[2..3].reverse
-    positions = [start_position, end_position]
-
-    if valid_move?(board, positions, input)
-      positions
-    else
-      puts 'Invalid move. Try Again'
-      make_move(board)
-    end
+    [start_position, end_position]
   end
 
-  def valid_move?(board, positions, input)
-    start_position, end_position = positions
-
+  def valid_input_format?(input)
     # Input length validation
     if input.length != 4
       puts 'You entered less or more than 4 characters'
@@ -50,11 +59,17 @@ class Player
       puts 'The first and third characters must be letters from a to h'
       return false
     end
+
     # Validate input characters for row
     unless valid_rows.include?(input[1]) && valid_rows.include?(input[3])
       puts 'The second and fourth characters must be numbers from 1 to 8'
       return false
     end
+    true
+  end
+
+  def valid_move?(board, positions)
+    start_position, end_position = positions
 
     # Check if piece exists at the start position
     piece = board.square_occupied?(start_position)
