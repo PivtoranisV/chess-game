@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'board'
+require_relative 'player'
 
 class Game
   #  credit for ASCII code https://www.asciiart.eu/text-to-ascii-art
@@ -23,6 +24,30 @@ class Game
   def initialize
     puts CHESS
     @board = Board.new
+    setup_players
+  end
+
+  def play
+    if @player1.color == :white
+      white_player = @player1
+      black_player = @player2
+    else
+      white_player = @player2
+      black_player = @player1
+    end
+    loop do
+      player_turn(white_player)
+
+      player_turn(black_player)
+    end
+  end
+
+  private
+
+  def player_turn(player)
+    move = player.make_move(@board)
+    @board.update_board(move)
+    display_board
   end
 
   def setup_players
@@ -31,8 +56,6 @@ class Game
     sleep(1)
     display_board
   end
-
-  private
 
   def display_board
     puts '    |  a  |  b  |  c  |  d  |  e  |  f  |  g  |  h  |'
