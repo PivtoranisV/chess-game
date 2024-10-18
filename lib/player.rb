@@ -24,7 +24,7 @@ class Player
     end_position = converted_input[2..3].reverse
     positions = [start_position, end_position]
 
-    if valid_move?(board, positions)
+    if valid_move?(board, positions, input)
       positions
     else
       puts 'Invalid move. Try Again'
@@ -32,13 +32,21 @@ class Player
     end
   end
 
-  def valid_move?(board, positions)
+  def valid_move?(board, positions, input)
     start_position, end_position = positions
-    piece = board.square_occupied?(start_position)
-    # possible_moves = piece.possible_moves(board)
-    return true unless piece.nil?
 
-    puts 'No piece at the selected start position.'
-    false
+    # possible_moves = piece.possible_moves(board)
+
+    if input.length != 4
+      puts 'You enter less or more than 4 characters'
+      return false
+    end
+
+    piece = board.square_occupied?(start_position)
+    if piece.nil?
+      puts 'No piece at the selected start position.'
+      return false
+    end
+    true
   end
 end

@@ -28,16 +28,23 @@ describe Player do
       end
     end
 
-    context 'When invalid input is provided' do
-      it 're-prompts for input and returns valid coordinates' do
-        allow(player).to receive(:gets).and_return('invalid', 'g2g4')
-        allow(board).to receive(:square_occupied?).with([1, 6]).and_return(true)
+    context 'When input is invalid length' do
+      it 'rejects input with less than 4 characters' do
+        allow(player).to receive(:gets).and_return('e2e', 'e2e4')
+        allow(board).to receive(:square_occupied?).with([1, 4]).and_return(true)
 
-        result = player.make_move(board)
-
-        expect(result).to eq([[1, 6], [3, 6]])
+        expect { player.make_move(board) }.to output(/Invalid move. Try Again/).to_stdout
       end
 
+      it 'rejects input with more than 4 characters' do
+        allow(player).to receive(:gets).and_return('invalid', 'e2e4')
+        allow(board).to receive(:square_occupied?).with([1, 4]).and_return(true)
+
+        expect { player.make_move(board) }.to output(/Invalid move. Try Again/).to_stdout
+      end
+    end
+
+    context 'When invalid input is provided' do
       it 'prints invalid move message and retries input' do
         allow(player).to receive(:gets).and_return('d2d4', 'a7a6')
         allow(board).to receive(:square_occupied?).with([1, 3]).and_return(nil)
