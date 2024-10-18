@@ -8,14 +8,14 @@ class Pawn < Pieces
     moves = []
 
     # Move direction depends on color
-    direction = color == :black ? 1 : -1
+    direction = color == :black ? -1 : 1
 
     # Regular move (one square forward)
     regular_move = [start_position_x + direction, start_position_y]
     moves << regular_move if valid_move?(regular_move) && !board.square_occupied?(regular_move)
 
     # First move (two squares forward)
-    if (color == :white && start_position_x == 6) || (color == :black && start_position_x == 1)
+    if (color == :black && start_position_x == 6) || (color == :white && start_position_x == 1)
       one_step_forward = [start_position_x + direction, start_position_y]
       first_move = [start_position_x + 2 * direction, start_position_y]
 
