@@ -22,6 +22,23 @@ class Player
 
     start_position = converted_input[0..1].reverse
     end_position = converted_input[2..3].reverse
-    [start_position, end_position]
+    positions = [start_position, end_position]
+
+    if valid_move?(board, positions)
+      positions
+    else
+      puts 'Invalid move. Try Again'
+      make_move(board)
+    end
+  end
+
+  def valid_move?(board, positions)
+    start_position, end_position = positions
+    piece = board.square_occupied?(start_position)
+    # possible_moves = piece.possible_moves(board)
+    return true unless piece.nil?
+
+    puts 'No piece at the selected start position.'
+    false
   end
 end
