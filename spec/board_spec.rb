@@ -78,4 +78,41 @@ describe Board do
       end
     end
   end
+
+  describe '#checkmate?' do
+    context 'when the white king is in checkmate by the black queen' do
+      before do
+        board.grid.each { |row| row.map! { nil } }
+
+        white_king = King.new([0, 4], :white)
+        board.grid[0][4] = white_king
+
+        black_queen = Queen.new([1, 4], :black)
+        board.grid[1][4] = black_queen
+
+        black_rook = Rook.new([1, 0], :black)
+        board.grid[1][0] = black_rook
+      end
+
+      it 'returns true for white king in checkmate' do
+        expect(board.checkmate?(:white)).to be true
+      end
+    end
+
+    context 'when the white king is in check but not in checkmate' do
+      before do
+        board.grid.each { |row| row.map! { nil } }
+
+        white_king = King.new([0, 4], :white)
+        board.grid[0][4] = white_king
+
+        black_rook = Rook.new([1, 4], :black)
+        board.grid[1][4] = black_rook
+      end
+
+      it 'returns false when the white king is only in check, not checkmate' do
+        expect(board.checkmate?(:white)).to be false
+      end
+    end
+  end
 end

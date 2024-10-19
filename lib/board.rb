@@ -47,29 +47,33 @@ class Board
     # Simulate moves
     player_pieces.each do |piece|
       piece.possible_moves(self).each do |move|
-        # Temporarily make the move
-        start_position = piece.position
-        end_position = move
-        captured_piece = square_occupied(end_position)
+        king_still_in_check = simulate_move_and_check?(piece, move)
 
-        update_board([start_position, end_position])
-
-        # Check if the king is still in check after the move
-        still_in_check = king_in_check?(color)
-
-        # Undo the move
-        update_board([end_position, start_position])
-        grid[end_position[0]][end_position[1]] = captured_piece
-        piece.position = start_position
-
-        # If the king is not in check after any move, it's not checkmate
-        return false unless still_in_check
+        return false unless king_still_in_check
       end
     end
     true
   end
 
   private
+
+  # Simulates a move, checks if the king is still in check after the move, and reverts the move.
+  def simulate_move_and_check?(piece, move)
+    start_position = piece.position
+    end_position = move
+    captured_piece = square_occupied(end_position)
+
+    update_board([start_position, end_position])
+
+    king_still_in_check = king_in_check?(piece.color)
+
+    # Undo the move
+    update_board([end_position, start_position])
+    grid[end_position[0]][end_position[1]] = captured_piece
+    piece.position = start_position
+
+    king_still_in_check
+  end
 
   def find_king_position(color)
     king = grid.flatten.compact.find { |piece| piece.instance_of?(King) && piece.color == color }
