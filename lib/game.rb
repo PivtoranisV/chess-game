@@ -47,6 +47,7 @@ class Game
   private
 
   def player_turn(player)
+    puts "#{player.name}, your King in the check, please protect him" if @board.king_in_check?(player.color)
     move = player.make_move(@board)
     @board.update_board(move)
     display_board
