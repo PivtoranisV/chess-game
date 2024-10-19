@@ -39,6 +39,36 @@ class Board
     end
   end
 
+  def checkmate?(color)
+    return false unless king_in_check?(color)
+
+    player_pieces = grid.flatten.compact.select { |piece| piece.color == color }
+
+    # Simulate moves
+    player_pieces.each do |piece|
+      piece.possible_moves(self).each do |move|
+        # Temporarily make the move
+        start_position = piece.position
+        end_position = move
+        captured_piece = square_occupied(end_position)
+
+        update_board([start_position, end_position])
+
+        # Check if the king is still in check after the move
+        still_in_check = king_in_check?(color)
+
+        # Undo the move
+        update_board([end_position, start_position])
+        grid[end_position[0]][end_position[1]] = captured_piece
+        piece.position = start_position
+
+        # If the king is not in check after any move, it's not checkmate
+        return false unless still_in_check
+      end
+    end
+    true
+  end
+
   private
 
   def find_king_position(color)
