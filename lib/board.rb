@@ -30,15 +30,21 @@ class Board
   end
 
   def king_in_check?(color)
-    kings = grid.flatten.select { |piece| piece.instance_of?(King) }
-    king_position = kings.find { |king| king.color == color }.position
+    king_position = find_king_position(color)
 
-    grid.flatten.any? do |piece|
+    opponent_pieces = grid.flatten.compact.reject { |piece| piece.color == color }
+
+    opponent_pieces.any? do |piece|
       piece.possible_moves(self).include?(king_position)
     end
   end
 
   private
+
+  def find_king_position(color)
+    king = grid.flatten.compact.find { |piece| piece.instance_of?(King) && piece.color == color }
+    king.position
+  end
 
   def create_grid
     Array.new(8) { Array.new(8) }

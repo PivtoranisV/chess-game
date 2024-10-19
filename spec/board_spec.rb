@@ -44,4 +44,38 @@ describe Board do
       end
     end
   end
+
+  describe '#king_in_check?' do
+    context 'when the white king is in check by a black rook' do
+      before do
+        board.grid.each { |row| row.map! { nil } }
+
+        white_king = King.new([0, 4], :white)
+        board.grid[0][4] = white_king
+
+        black_rook = Rook.new([1, 4], :black)
+        board.grid[1][4] = black_rook
+      end
+
+      it 'returns true for white king in check' do
+        expect(board.king_in_check?(:white)).to be true
+      end
+    end
+
+    context 'when the white king is not in check' do
+      before do
+        board.grid.each { |row| row.map! { nil } }
+
+        white_king = King.new([0, 4], :white)
+        board.grid[0][4] = white_king
+
+        black_rook = Rook.new([2, 2], :black)
+        board.grid[2][2] = black_rook
+      end
+
+      it 'returns false for white king not in check' do
+        expect(board.king_in_check?(:white)).to be false
+      end
+    end
+  end
 end

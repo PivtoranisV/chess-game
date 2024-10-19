@@ -3,7 +3,7 @@
 require_relative 'pieces'
 
 class King < Pieces
-  def possible_moves
+  def possible_moves(_board = nil)
     position_x, position_y = position
 
     moves = [
