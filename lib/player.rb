@@ -18,7 +18,7 @@ class Player
     if input == 'help'
       display_help
       make_move(board)
-    elsif input == 'save'
+    elsif %w[save exit].include?(input)
       input
     elsif valid_input_format?(input)
       positions = convert_input(input)

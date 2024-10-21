@@ -123,10 +123,16 @@ class Game
   end
 
   def player_turn(player)
-    puts "#{player.name}, your King in the check, please protect him" if @board.king_in_check?(player.color)
+    puts "#{player.name}, your King is in check, please protect him" if @board.king_in_check?(player.color)
+
     move = player.make_move(@board)
-    if move == 'save'
+
+    case move
+    when 'save'
       save_game
+    when 'exit'
+      puts 'Thank you for playing!'
+      exit
     else
       @board.update_board(move)
       display_board
