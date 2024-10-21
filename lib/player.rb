@@ -107,5 +107,21 @@ class Player
 
   def display_help
     puts 'Chess Game Rules:'
+    puts '- The game is played between two players, each starting with 16 pieces (white vs. black).'
+    puts '- Objective: Checkmate your opponent by trapping their King so it cannot escape capture.'
+    puts '- The game is played on an 8x8 board, with each player taking alternate turns.'
+    puts '- Piece Movement:'
+    puts '  - King: Moves one square in any direction.'
+    puts '  - Queen: Moves any number of squares in any direction.'
+    puts '  - Rook: Moves any number of squares horizontally or vertically.'
+    puts '  - Bishop: Moves any number of squares diagonally.'
+    puts '  - Knight: Moves in an "L" shape.'
+    puts '- How to Enter a Move:'
+    puts '- Use long algebraic notation (e.g., e2e4).'
+    puts '- Enter the starting and ending squares (e.g., g1f3).'
+    puts '- Special commands:'
+    puts '  - Type "save" to save the game.'
+    puts '  - Type "exit" to quit the game.'
+    puts '- A game can end by checkmate, stalemate (no legal moves).'
   end
 end
