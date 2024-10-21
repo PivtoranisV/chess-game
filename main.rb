@@ -2,4 +2,4 @@
 
 require_relative 'lib/game'
 
-Game.new.play
+Game.start

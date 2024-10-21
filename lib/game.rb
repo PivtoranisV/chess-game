@@ -22,11 +22,32 @@ class Game
   PIECES_COLORS = %i[white black].freeze
 
   def initialize
-    puts CHESS
     puts "\n Hi everyone, if you are not familiar with chess rules, please type help,
     if you want to save yor game, please type save\n"
     @board = Board.new
     setup_players
+  end
+
+  def self.start
+    puts CHESS
+    puts 'Would you like to (1) start a new game or (2) load a saved game?'
+    choice = gets.chomp
+
+    if choice == '2'
+
+      game = load_game
+      if game
+        puts "\nYour saved game load successfully, continue to play\n"
+        puts game.display_board
+        game.play
+      else
+        puts "\nNew game started"
+        Game.new.play
+      end
+    else
+      puts "\nNew game started"
+      Game.new.play
+    end
   end
 
   def play
@@ -46,32 +67,15 @@ class Game
     end
   end
 
-  private
-
-  def game_over?(color)
-    if @board.checkmate?(color)
-      puts "Checkmate! #{color == :white ? 'WHITE' : 'BLACK'} is the winner."
-      true
-    elsif @board.stalemate?(color)
-      puts "It's a draw!"
-      true
+  def self.load_game
+    if File.exist?('saved_game')
+      File.open('saved_game') do |file|
+        return Marshal.load(file)
+      end
     else
-      false
+      puts "\nNo saved game found"
+      nil
     end
-  end
-
-  def player_turn(player)
-    puts "#{player.name}, your King in the check, please protect him" if @board.king_in_check?(player.color)
-    move = player.make_move(@board)
-    @board.update_board(move)
-    display_board
-  end
-
-  def setup_players
-    @player1 = create_player('Chess Player', nil)
-    @player2 = create_player('Chess Player', @player1.color)
-    sleep(1)
-    display_board
   end
 
   def display_board
@@ -92,6 +96,38 @@ class Game
     puts '     a   b   c   d   e   f   g   h '
   end
 
+  private
+
+  def game_over?(color)
+    if @board.checkmate?(color)
+      puts "Checkmate! #{color == :white ? 'WHITE' : 'BLACK'} is the winner."
+      true
+    elsif @board.stalemate?(color)
+      puts "It's a draw!"
+      true
+    else
+      false
+    end
+  end
+
+  def player_turn(player)
+    puts "#{player.name}, your King in the check, please protect him" if @board.king_in_check?(player.color)
+    move = player.make_move(@board)
+    if move == 'save'
+      save_game
+    else
+      @board.update_board(move)
+      display_board
+    end
+  end
+
+  def setup_players
+    @player1 = create_player('Chess Player', nil)
+    @player2 = create_player('Chess Player', @player1.color)
+    sleep(1)
+    display_board
+  end
+
   def colorize_piece(piece)
     piece_color = piece.color == :black ? :black : :light_white
     piece.symbol.colorize(color: piece_color, mode: :bold)
@@ -110,5 +146,11 @@ class Game
     return PIECES_COLORS.sample unless color
 
     PIECES_COLORS.reject { |el| el == color }[0]
+  end
+
+  def save_game
+    File.open('saved_game', 'w') do |file|
+      Marshal.dump(self, file)
+    end
   end
 end
