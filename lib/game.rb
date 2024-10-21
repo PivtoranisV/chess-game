@@ -22,8 +22,10 @@ class Game
   PIECES_COLORS = %i[white black].freeze
 
   def initialize
-    puts "\n Hi everyone, if you are not familiar with chess rules, please type help,
-    if you want to save yor game, please type save\n"
+    puts "\nWelcome to Chess! Here are some commands you can use during the game:\n"
+    puts "'help' - Display the game rules"
+    puts "'save' - Save your current game"
+    puts "'exit' - Exit the game\n\n"
     @board = Board.new
     @current_turn = :white
     setup_players
@@ -42,7 +44,7 @@ class Game
         puts game.display_board
         game.play
       else
-        puts "\nNew game started"
+        puts "\nNo saved game found. Starting a new game."
         Game.new.play
       end
     else
@@ -112,7 +114,7 @@ class Game
 
   def game_over?(color)
     if @board.checkmate?(color)
-      puts "Checkmate! #{color == :white ? 'WHITE' : 'BLACK'} is the winner."
+      puts "Checkmate! #{color == :white ? 'WHITE' : 'BLACK'} wins the game."
       true
     elsif @board.stalemate?(color)
       puts "It's a draw!"
@@ -123,8 +125,10 @@ class Game
   end
 
   def player_turn(player)
-    puts "#{player.name}, your King is in check, please protect him" if @board.king_in_check?(player.color)
+    puts "\n#{player.name}'s turn (#{player.color.to_s.upcase} pieces)"
+    puts 'Your King is in check, protect it!' if @board.king_in_check?(player.color)
 
+    puts "\nPlease enter your move (e.g., 'e2e4'), or type 'save' to save the game, 'exit' to quit:"
     move = player.make_move(@board)
 
     case move

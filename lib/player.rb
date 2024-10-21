@@ -11,9 +11,6 @@ class Player
   end
 
   def make_move(board)
-    puts "\n#{name}, Enter your move or type 'help' for rules, or just type 'save' to save game:"
-    puts 'Please enter your move using long algebraic notation (e.g., e2e4):'
-
     input = gets.chomp.downcase
     if input == 'help'
       display_help
@@ -26,11 +23,11 @@ class Player
       if valid_move?(board, positions)
         positions
       else
-        puts 'Oops! The move you entered is invalid.'
+        puts 'Invalid move. Please try again.'
         make_move(board)
       end
     else
-      puts 'Oops! The move you entered is invalid. Remember to use long algebraic notation like e2e4. Try again:'
+      puts 'Invalid input format. Use notation like e2e4.'
       make_move(board)
     end
   end
@@ -84,7 +81,7 @@ class Player
 
     # Check if player move with own color piece
     if piece.color != color
-      puts "You can move only with #{color} pieces"
+      puts "You can move only your #{color} pieces."
       return false
     end
 
