@@ -25,6 +25,7 @@ class Game
     puts "\n Hi everyone, if you are not familiar with chess rules, please type help,
     if you want to save yor game, please type save\n"
     @board = Board.new
+    @current_turn = :white
     setup_players
   end
 
@@ -59,11 +60,15 @@ class Game
       black_player = @player1
     end
     loop do
-      player_turn(white_player)
-      break if game_over?(:black)
+      if @current_turn == :white
+        player_turn(white_player)
+        @current_turn = :black
+      else
+        player_turn(black_player)
+        @current_turn = :white
+      end
 
-      player_turn(black_player)
-      break if game_over?(:white)
+      break if game_over?(@current_turn == :white ? :black : :white)
     end
   end
 
