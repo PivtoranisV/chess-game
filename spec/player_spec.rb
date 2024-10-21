@@ -14,7 +14,7 @@ describe Player do
         allow(player).to receive(:gets).and_return('e2e4')
         allow(board).to receive(:square_occupied).with([1, 4]).and_return(piece)
         allow(board).to receive(:king_in_check?).with(:white).and_return(false)
-        allow(piece).to receive(:possible_moves).and_return([[1, 4], [3, 4]])
+        allow(board).to receive(:simulate_move_and_check?).with(piece, [3, 4]).and_return(false)
 
         result = player.make_move(board)
 
@@ -27,6 +27,7 @@ describe Player do
         allow(player).to receive(:gets).and_return('e2e', 'e2e4')
         allow(board).to receive(:square_occupied).with([1, 4]).and_return(piece)
         allow(board).to receive(:king_in_check?).with(:white).and_return(false)
+        allow(board).to receive(:simulate_move_and_check?).with(piece, [3, 4]).and_return(false)
 
         expect do
           player.make_move(board)
@@ -37,6 +38,7 @@ describe Player do
         allow(player).to receive(:gets).and_return('invalid', 'e2e4')
         allow(board).to receive(:square_occupied).with([1, 4]).and_return(piece)
         allow(board).to receive(:king_in_check?).with(:white).and_return(false)
+        allow(board).to receive(:simulate_move_and_check?).with(piece, [3, 4]).and_return(false)
 
         expect do
           player.make_move(board)
@@ -49,6 +51,7 @@ describe Player do
         allow(player).to receive(:gets).and_return('z2z4', 'e2e4')
         allow(board).to receive(:square_occupied).with([1, 4]).and_return(piece)
         allow(board).to receive(:king_in_check?).with(:white).and_return(false)
+        allow(board).to receive(:simulate_move_and_check?).with(piece, [3, 4]).and_return(false)
 
         expect do
           player.make_move(board)
@@ -59,6 +62,7 @@ describe Player do
         allow(player).to receive(:gets).and_return('e9e4', 'e2e4')
         allow(board).to receive(:square_occupied).with([1, 4]).and_return(piece)
         allow(board).to receive(:king_in_check?).with(:white).and_return(false)
+        allow(board).to receive(:simulate_move_and_check?).with(piece, [3, 4]).and_return(false)
 
         expect do
           player.make_move(board)
@@ -72,6 +76,7 @@ describe Player do
         allow(board).to receive(:square_occupied).with([1, 3]).and_return(nil)
         allow(board).to receive(:square_occupied).with([1, 4]).and_return(piece)
         allow(board).to receive(:king_in_check?).with(:white).and_return(false)
+        allow(board).to receive(:simulate_move_and_check?).with(piece, [3, 4]).and_return(false)
 
         expect { player.make_move(board) }.to output(/Oops! The move you entered is invalid./).to_stdout
       end
@@ -83,6 +88,7 @@ describe Player do
         allow(board).to receive(:square_occupied).with([1, 4]).and_return(piece)
         allow(piece).to receive(:possible_moves).and_return([[3, 4], [2, 4]])
         allow(board).to receive(:king_in_check?).with(:white).and_return(false)
+        allow(board).to receive(:simulate_move_and_check?).with(piece, [3, 4]).and_return(false)
 
         expect { player.make_move(board) }.to output(/Provided move is not allowed/).to_stdout
       end

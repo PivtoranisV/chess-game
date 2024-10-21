@@ -56,8 +56,6 @@ class Board
     true
   end
 
-  private
-
   # Simulates a move, checks if the king is still in check after the move, and reverts the move.
   def simulate_move_and_check?(piece, move)
     start_position = piece.position
@@ -75,6 +73,8 @@ class Board
 
     king_still_in_check
   end
+
+  private
 
   def find_king_position(color)
     king = grid.flatten.compact.find { |piece| piece.instance_of?(King) && piece.color == color }

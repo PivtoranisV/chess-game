@@ -94,9 +94,9 @@ class Player
       return false
     end
 
-    # Check If King in the check
-    if board.king_in_check?(color)
-      puts 'Your King in the check, only moves that remove the King from attack are permitted'
+    # Simulate the move and check if it places or leaves the King in check
+    if board.simulate_move_and_check?(piece, end_position)
+      puts 'This move would place your King in check!'
       return false
     end
 
