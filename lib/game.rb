@@ -68,12 +68,19 @@ class Game
   end
 
   def self.load_game
-    if File.exist?('saved_game')
-      File.open('saved_game') do |file|
-        return Marshal.load(file)
+    puts 'Enter the name of the saved game file to load:'
+    file_name = gets.chomp
+    if File.exist?("saved_games/#{file_name}_saved_game")
+      begin
+        File.open("saved_games/#{file_name}_saved_game") do |file|
+          return Marshal.load(file)
+        end
+      rescue StandardError => e
+        puts "Error loading game: #{e.message}. The save file may be corrupted."
+        nil
       end
     else
-      puts "\nNo saved game found"
+      puts "\nNo saved game found with that name."
       nil
     end
   end
@@ -149,8 +156,12 @@ class Game
   end
 
   def save_game
-    File.open('saved_game', 'w') do |file|
+    Dir.mkdir('saved_games') unless Dir.exist?('saved_games')
+    puts 'Enter a name for your save file:'
+    file_name = gets.chomp
+    File.open("saved_games/#{file_name}_saved_game", 'w') do |file|
       Marshal.dump(self, file)
     end
+    puts "Game saved as #{file_name}_saved_game."
   end
 end
