@@ -34,8 +34,13 @@ class Pieces
     moves
   end
 
-  def valid_moves(possible_moves)
-    possible_moves.select { |move| valid_move?(move) }
+  def valid_moves(possible_moves, board)
+    all_possible_moves = possible_moves.select { |move| valid_move?(move) }
+
+    all_possible_moves.reject do |move|
+      piece = board.square_occupied(move)
+      piece.color == color if piece
+    end
   end
 
   def valid_move?(move)

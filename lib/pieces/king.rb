@@ -3,7 +3,7 @@
 require_relative 'pieces'
 
 class King < Pieces
-  def possible_moves(_board = nil)
+  def possible_moves(board)
     position_x, position_y = position
 
     moves = [
@@ -14,6 +14,6 @@ class King < Pieces
     ]
 
     # Return moves only within the 8x8 board
-    valid_moves(moves)
+    valid_moves(moves, board)
   end
 end
