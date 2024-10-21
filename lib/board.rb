@@ -52,6 +52,7 @@ class Board
         return false unless king_still_in_check
       end
     end
+    puts "Checkmate!!! #{color == :white ? 'WHITE' : 'BLACK'} is the winner"
     true
   end
 

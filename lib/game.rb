@@ -39,8 +39,10 @@ class Game
     end
     loop do
       player_turn(white_player)
+      break if @board.checkmate?(:black)
 
       player_turn(black_player)
+      break if @board.checkmate?(:white)
     end
   end
 
