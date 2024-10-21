@@ -72,7 +72,7 @@ class Game
         @current_turn = :white
       end
 
-      break if game_over?(@current_turn == :white ? :black : :white)
+      break if game_over?(@current_turn)
     end
   end
 
@@ -116,7 +116,7 @@ class Game
 
   def game_over?(color)
     if @board.checkmate?(color)
-      puts "Checkmate! #{color == :white ? 'WHITE' : 'BLACK'} wins the game.".colorize(color: :blue)
+      puts "Checkmate! #{color == :white ? 'BLACK' : 'WHITE'} wins the game.".colorize(color: :blue)
       true
     elsif @board.stalemate?(color)
       puts "It's a draw!".colorize(color: :blue)
