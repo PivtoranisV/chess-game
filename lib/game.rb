@@ -22,33 +22,35 @@ class Game
   PIECES_COLORS = %i[white black].freeze
 
   def initialize
-    puts "\nWelcome to Chess! Here are some commands you can use during the game:\n"
-    puts "'help' - Display the game rules"
-    puts "'save' - Save your current game"
-    puts "'exit' - Exit the game\n\n"
+    puts "\nWelcome to Chess! Here are some commands you can use during the game:\n".colorize(color: :yellow)
+    puts "#{'help'.colorize(color: :yellow)} - Display the game rules"
+    puts "#{'save'.colorize(color: :yellow)} - Save your current game"
+    puts "#{'exit'.colorize(color: :yellow)} - Exit the game\n\n"
     @board = Board.new
     @current_turn = :white
     setup_players
   end
 
   def self.start
-    puts CHESS
-    puts 'Would you like to (1) start a new game or (2) load a saved game?'
+    puts CHESS.colorize(color: :yellow)
+    puts "\nWould you like to
+    #{'(1)'.colorize(color: :green)} start a new game
+    or #{'(2)'.colorize(color: :green)} load a saved game?"
     choice = gets.chomp
 
     if choice == '2'
 
       game = load_game
       if game
-        puts "\nYour saved game load successfully, continue to play\n"
+        puts "\nYour saved game load successfully, continue to play\n".colorize(color: :green)
         puts game.display_board
         game.play
       else
-        puts "\nNo saved game found. Starting a new game."
+        puts "\nStarting a new game.".colorize(color: :red)
         Game.new.play
       end
     else
-      puts "\nNew game started"
+      puts "\nNew game started".colorize(color: :green)
       Game.new.play
     end
   end
@@ -75,7 +77,7 @@ class Game
   end
 
   def self.load_game
-    puts 'Enter the name of the saved game file to load:'
+    puts 'Enter the name of the saved game file to load:'.colorize(color: :green)
     file_name = gets.chomp
     if File.exist?("saved_games/#{file_name}_saved_game")
       begin
@@ -87,7 +89,7 @@ class Game
         nil
       end
     else
-      puts "\nNo saved game found with that name."
+      puts "\nNo saved game found with that name.".colorize(color: :red)
       nil
     end
   end
@@ -107,17 +109,17 @@ class Game
       puts '  +---+---+---+---+---+---+---+---+'
     end
 
-    puts '     a   b   c   d   e   f   g   h '
+    puts '    a   b   c   d   e   f   g   h '
   end
 
   private
 
   def game_over?(color)
     if @board.checkmate?(color)
-      puts "Checkmate! #{color == :white ? 'WHITE' : 'BLACK'} wins the game."
+      puts "Checkmate! #{color == :white ? 'WHITE' : 'BLACK'} wins the game.".colorize(color: :blue)
       true
     elsif @board.stalemate?(color)
-      puts "It's a draw!"
+      puts "It's a draw!".colorize(color: :blue)
       true
     else
       false
@@ -125,17 +127,18 @@ class Game
   end
 
   def player_turn(player)
-    puts "\n#{player.name}'s turn (#{player.color.to_s.upcase} pieces)"
-    puts 'Your King is in check, protect it!' if @board.king_in_check?(player.color)
+    puts "\n#{player.name}'s turn (#{player.color.to_s.upcase} pieces)".colorize(color: :blue)
+    puts 'Your King is in check, protect it!'.colorize(color: :red) if @board.king_in_check?(player.color)
 
-    puts "\nPlease enter your move (e.g., 'e2e4'), or type 'save' to save the game, 'exit' to quit:"
+    puts "\nPlease enter your move (e.g., 'e2e4'), or type 'save' to save the game, 'exit' to quit:".colorize(color: :green)
     move = player.make_move(@board)
 
     case move
     when 'save'
       save_game
+      player_turn(player)
     when 'exit'
-      puts 'Thank you for playing!'
+      puts 'Thank you for playing!'.colorize(color: :blue)
       exit
     else
       @board.update_board(move)
@@ -156,11 +159,11 @@ class Game
   end
 
   def create_player(default_name, other_color)
-    puts "\n#{default_name}, please enter your name:\n"
+    puts "\n#{default_name}, please enter your name:\n".colorize(color: :green)
     name = gets.chomp
     name = default_name if name.strip.empty?
     color = player_color(other_color)
-    puts "\n#{name}, you will play for #{color.upcase} team\n"
+    puts "\n#{name}, you will play for #{color.upcase} team\n".colorize(color: :blue)
     Player.new(name, color)
   end
 
@@ -172,11 +175,11 @@ class Game
 
   def save_game
     Dir.mkdir('saved_games') unless Dir.exist?('saved_games')
-    puts 'Enter a name for your save file:'
+    puts 'Enter a name for your save file:'.colorize(color: :green)
     file_name = gets.chomp
     File.open("saved_games/#{file_name}_saved_game", 'w') do |file|
       Marshal.dump(self, file)
     end
-    puts "Game saved as #{file_name}_saved_game."
+    puts "Game saved as #{file_name}_saved_game.".colorize(color: :blue)
   end
 end

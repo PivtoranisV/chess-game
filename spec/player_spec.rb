@@ -31,7 +31,7 @@ describe Player do
 
         expect do
           player.make_move(board)
-        end.to output(/Oops! The move you entered is invalid. Remember to use long algebraic notation like e2e4. Try again:/).to_stdout
+        end.to output(/Invalid input format. Use notation like e2e4./).to_stdout
       end
 
       it 'rejects input with more than 4 characters' do
@@ -42,7 +42,7 @@ describe Player do
 
         expect do
           player.make_move(board)
-        end.to output(/Oops! The move you entered is invalid. Remember to use long algebraic notation like e2e4. Try again:/).to_stdout
+        end.to output(/Invalid input format. Use notation like e2e4./).to_stdout
       end
     end
 
@@ -78,7 +78,7 @@ describe Player do
         allow(board).to receive(:king_in_check?).with(:white).and_return(false)
         allow(board).to receive(:simulate_move_and_check?).with(piece, [3, 4]).and_return(false)
 
-        expect { player.make_move(board) }.to output(/Oops! The move you entered is invalid./).to_stdout
+        expect { player.make_move(board) }.to output(/Invalid move. Please try again./).to_stdout
       end
     end
 

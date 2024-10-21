@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'colorize'
 require_relative 'pieces/bishop'
 
 class Player
@@ -23,11 +24,11 @@ class Player
       if valid_move?(board, positions)
         positions
       else
-        puts 'Invalid move. Please try again.'
+        puts 'Invalid move. Please try again.'.colorize(color: :red)
         make_move(board)
       end
     else
-      puts 'Invalid input format. Use notation like e2e4.'
+      puts 'Invalid input format. Use notation like e2e4.'.colorize(color: :red)
       make_move(board)
     end
   end
@@ -47,7 +48,7 @@ class Player
   def valid_input_format?(input)
     # Input length validation
     if input.length != 4
-      puts 'You entered less or more than 4 characters'
+      puts 'You entered less or more than 4 characters'.colorize(color: :red)
       return false
     end
 
@@ -57,13 +58,13 @@ class Player
 
     # Validate input characters for columns
     unless valid_columns.include?(input[0]) && valid_columns.include?(input[2])
-      puts 'The first and third characters must be letters from a to h'
+      puts 'The first and third characters must be letters from a to h'.colorize(color: :red)
       return false
     end
 
     # Validate input characters for row
     unless valid_rows.include?(input[1]) && valid_rows.include?(input[3])
-      puts 'The second and fourth characters must be numbers from 1 to 8'
+      puts 'The second and fourth characters must be numbers from 1 to 8'.colorize(color: :red)
       return false
     end
     true
@@ -75,13 +76,13 @@ class Player
     # Check if piece exists at the start position
     piece = board.square_occupied(start_position)
     if piece.nil?
-      puts 'No piece at the selected start position.'
+      puts 'No piece at the selected start position.'.colorize(color: :red)
       return false
     end
 
     # Check if player move with own color piece
     if piece.color != color
-      puts "You can move only your #{color} pieces."
+      puts "You can move only your #{color} pieces.".colorize(color: :red)
       return false
     end
 
@@ -89,13 +90,13 @@ class Player
     possible_moves = piece.possible_moves(board)
 
     unless possible_moves.include?(end_position)
-      puts 'Provided move is not allowed'
+      puts 'Provided move is not allowed'.colorize(color: :red)
       return false
     end
 
     # Simulate the move and check if it places or leaves the King in check
     if board.simulate_move_and_check?(piece, end_position)
-      puts 'This move would place your King in check!'
+      puts 'This move would place your King in check!'.colorize(color: :red)
       return false
     end
 
