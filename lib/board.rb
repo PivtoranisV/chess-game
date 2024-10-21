@@ -15,6 +15,18 @@ class Board
     populate_pieces
   end
 
+  def stalemate?(color)
+    return false if king_in_check?(color)
+
+    player_pieces = grid.flatten.compact.select { |piece| piece.color == color }
+
+    player_pieces.any? do |piece|
+      moves = piece.possible_moves(self)
+
+      moves.any? { |move| simulate_move_and_check?(piece, move) }
+    end
+  end
+
   def square_occupied(position)
     position_x, position_y = position
     grid[position_x][position_y]
@@ -44,15 +56,11 @@ class Board
 
     player_pieces = grid.flatten.compact.select { |piece| piece.color == color }
 
-    # Simulate moves
     player_pieces.each do |piece|
       piece.possible_moves(self).each do |move|
-        king_still_in_check = simulate_move_and_check?(piece, move)
-
-        return false unless king_still_in_check
+        return false unless simulate_move_and_check?(piece, move)
       end
     end
-    puts "Checkmate!!! #{color == :white ? 'WHITE' : 'BLACK'} is the winner"
     true
   end
 

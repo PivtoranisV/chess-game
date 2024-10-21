@@ -39,14 +39,26 @@ class Game
     end
     loop do
       player_turn(white_player)
-      break if @board.checkmate?(:black)
+      break if game_over?(:black)
 
       player_turn(black_player)
-      break if @board.checkmate?(:white)
+      break if game_over?(:white)
     end
   end
 
   private
+
+  def game_over?(color)
+    if @board.checkmate?(color)
+      puts "Checkmate! #{color == :white ? 'WHITE' : 'BLACK'} is the winner."
+      true
+    elsif @board.stalemate?(color)
+      puts "It's a draw!"
+      true
+    else
+      false
+    end
+  end
 
   def player_turn(player)
     puts "#{player.name}, your King in the check, please protect him" if @board.king_in_check?(player.color)
