@@ -3,6 +3,8 @@
 require 'colorize'
 require_relative 'pieces/bishop'
 
+# The Player class represents a player in the chess game.
+# It manages player information and handles user input for making moves.
 class Player
   attr_reader :name, :color
 
@@ -11,6 +13,8 @@ class Player
     @color = color
   end
 
+  # Prompts the player for a move and processes the input.
+  # It handles special commands (help, save, exit) and validates the move.
   def make_move(board)
     input = gets.chomp.downcase
     if input == 'help'
@@ -35,6 +39,7 @@ class Player
 
   private
 
+  # Converts the user input from algebraic notation to board positions.
   def convert_input(input)
     converted_input = input.split('').map do |char|
       char.match?(/[a-z]/) ? char.ord - 97 : char.to_i - 1
@@ -70,6 +75,7 @@ class Player
     true
   end
 
+  # Checks if a move is valid based on the game rules and current board state.
   def valid_move?(board, positions)
     start_position, end_position = positions
 

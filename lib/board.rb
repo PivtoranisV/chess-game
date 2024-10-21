@@ -7,6 +7,9 @@ require_relative 'pieces/king'
 require_relative 'pieces/knight'
 require_relative 'pieces/pawn'
 require_relative 'pieces/queen'
+
+# The Board class represents the chess game board and manages the state of the game.
+# It handles piece placement, movement, and game logic related to checking conditions like, checkmate, and stalemate.
 class Board
   attr_reader :grid
 
@@ -27,11 +30,13 @@ class Board
     end
   end
 
+  # Returns the piece located at the specified position.
   def square_occupied(position)
     position_x, position_y = position
     grid[position_x][position_y]
   end
 
+  # Updates the board to reflect a move from start to end position.
   def update_board(positions)
     start_position, end_position = positions
     piece = square_occupied(start_position)

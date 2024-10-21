@@ -3,6 +3,11 @@
 require_relative 'board'
 require_relative 'player'
 
+# The Game class orchestrates the chess game, handling player turns, moves, and game state.
+#
+# It initializes the game with a chess board and players, allows players to make moves,
+# manages game states like check, checkmate, and stalemate, and provides functionality
+# for saving and loading games.
 class Game
   #  credit for ASCII code https://www.asciiart.eu/text-to-ascii-art
   CHESS = '////////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# The Pieces class serves as a base class for all chess pieces,
+# providing shared attributes and methods that govern their behavior.
 class Pieces
   attr_accessor :position, :symbol, :color
 
