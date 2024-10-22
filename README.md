@@ -1,4 +1,5 @@
 # Chess Game
+
 ![Chess Game](assets/chess_board.png)
 
 ## Overview

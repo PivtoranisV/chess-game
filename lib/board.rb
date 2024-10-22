@@ -23,10 +23,10 @@ class Board
 
     player_pieces = grid.flatten.compact.select { |piece| piece.color == color }
 
-    player_pieces.any? do |piece|
+    player_pieces.all? do |piece|
       moves = piece.possible_moves(self)
 
-      moves.any? { |move| simulate_move_and_check?(piece, move) }
+      moves.all? { |move| simulate_move_and_check?(piece, move) }
     end
   end
 
